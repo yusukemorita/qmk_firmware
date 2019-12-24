@@ -32,7 +32,8 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
+  RGBRST,
+  KC_ESCAPE_AND_ENGLISH
 };
 
 enum macro_keycodes {
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ESC, RAISE, ALTKN \
+                                  GUIEI, LOWER,   SPC,   ESCAPE_AND_ENGLISH, RAISE, ALTKN \
                               //`--------------------'  `--------------------'
   ),
 
@@ -182,7 +183,12 @@ void iota_gfx_task_user(void) {
 #endif//SSD1306OLED
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
+  switch(keycode) {
+    case KC_ESCAPE_AND_ENGLISH:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_LANG2));
+      }
+      break;
 #ifdef SSD1306OLED
     set_keylog(keycode, record);
 #endif
