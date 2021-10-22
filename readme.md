@@ -10,7 +10,9 @@ make crkbd/rev1:yusukemorita
 QMK Toolbox を開き、`/Users/moritayusuke/qmk_firmware/crkbd_rev1_yusukemorita.hex`をOpenする
 
 3.
-auto flashがONになってることを確認し、キーボードのresetボタンをクリックすると
+- auto flashがONになってることを確認し、corne cherryを片方接続する。
+- corne cherryのresetボタンをクリックするとflashが始まる。
+- 完了したら、もう片方も同じ手順を繰り返す。
 
 # Quantum Mechanical Keyboard Firmware
 
