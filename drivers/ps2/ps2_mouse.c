@@ -98,7 +98,8 @@ void ps2_mouse_task(void) {
         mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
     } else {
-        print(rcv);
+        // Print the value of rcv in hexadecimal format
+        printf("rcv: 0x%02X\n", rcv);
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
         /* return here to avoid updating the mouse button state */
         return;
