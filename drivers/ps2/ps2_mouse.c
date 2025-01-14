@@ -90,6 +90,8 @@ void ps2_mouse_task(void) {
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
     uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
+    // Print the value of rcv in hexadecimal format
+    printf("rcv: 0x%02X\n", rcv);
     if (rcv == PS2_ACK) {
         mouse_report.buttons = ps2_host_recv_response();
         mouse_report.x       = ps2_host_recv_response();
@@ -98,8 +100,6 @@ void ps2_mouse_task(void) {
         mouse_report.v = -(ps2_host_recv_response() & PS2_MOUSE_SCROLL_MASK);
 #    endif
     } else {
-        // Print the value of rcv in hexadecimal format
-        printf("rcv: 0x%02X\n", rcv);
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
         /* return here to avoid updating the mouse button state */
         return;
