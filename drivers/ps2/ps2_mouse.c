@@ -83,11 +83,13 @@ __attribute__((weak)) void ps2_mouse_init_user(void) {}
 __attribute__((weak)) void ps2_mouse_moved_user(report_mouse_t *mouse_report) {}
 
 void ps2_mouse_task(void) {
+    print("ps2 mouse task");
     static uint8_t buttons_prev = 0;
     extern int     tp_buttons;
 
     /* receives packet from mouse */
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
+    print("use remote mode");
     uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     // Print the value of rcv in hexadecimal format
@@ -105,7 +107,9 @@ void ps2_mouse_task(void) {
         return;
     }
 #else
+    print("not remote mode");
     if (pbuf_has_data()) {
+        print("pbuf has data");
         mouse_report.buttons = ps2_host_recv_response();
         mouse_report.x       = ps2_host_recv_response();
         mouse_report.y       = ps2_host_recv_response();
